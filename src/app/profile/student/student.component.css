@@ -1,30 +1,48 @@
-/* Common styles for the page */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f8f9fa; /* Light grey background */
 }
-
 .container {
-  max-width: 800px;
   margin: 0 auto;
   padding: 40px 20px;
+  display: flex; /* Используем flex-контейнер для расположения по горизонтали */
 }
-
-/* Styles for headings */
-h1,
-h4 {
-  color: #343a40; /* Dark grey color for headings */
-}
-
-/* Styles for preferences section */
 .preferences-section {
+  flex: 0 0 45%; /* Занимает 45% доступной ширины слева */
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Increased shadow */
-  margin-bottom: 30px; /* Increased bottom margin */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Увеличенная тень */
+  margin-right: 20px; /* Пространство между .preferences-section и .cv-section */
+}
+.cv-section {
+  flex: 1; /* Занимает оставшиеся доступное пространство справа */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Увеличенная тень */
+  margin-bottom: 30px; /* Увеличенный нижний отступ */
+}
+.tags {
+  display: flex; /* Используем flexbox для контейнера .tags */
+}
+
+.tags-your,
+.tags-select {
+  flex: 1; /* Равномерное распределение пространства между .tags-your и .tags-select */
+  padding: 10px; /* Добавляем отступы внутри блоков */
+}
+
+h4 {
+  margin-top: 0; /* Убираем верхний отступ у заголовков */
+  margin-bottom: 10px; /* Добавляем нижний отступ между заголовками и содержимым */
+}
+
+.tags-your h4,
+.tags-select h4 {
+  margin-bottom: 5px; /* Уменьшаем отступ между заголовком и верхним параграфом */
 }
 
 .preferences-section h1 {
@@ -56,15 +74,6 @@ h4 {
   background-color: #0056b3;
 }
 
-/* Styles for CV section */
-.cv-section {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px; /* Increased bottom margin */
-}
-
 .cv-section h1 {
   font-size: 28px;
   margin-bottom: 20px;
@@ -85,7 +94,6 @@ h4 {
   border-radius: 4px;
   box-sizing: border-box;
   transition: border-color 0.3s ease;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Match the body font */
 }
 
 .cv-section input:focus,
@@ -101,14 +109,12 @@ h4 {
   padding: 12px 24px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Match the body font */
 }
 
 .cv-section button:hover {
   background-color: #0056b3;
 }
 
-/* Styles for response history */
 .response-history {
   list-style-type: none;
   padding: 0;
@@ -139,4 +145,178 @@ h4 {
 
 .response-history li:nth-child(odd) span {
   color: #343a40;
+}
+/* Изменение стиля radio-кнопок при наведении */
+input[type="radio"]:hover {
+  outline: none; /* Убираем контур при наведении */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Тень при наведении */
+}
+
+/* Стили для текста меток при наведении */
+label:hover {
+  color: #007bff; /* Изменяем цвет текста при наведении на метку */
+}
+.section-internshipsAndHistoty {
+  display: flex;
+  justify-content: space-between;
+  width: 100%; /* Занимает всю доступную ширину */
+  margin-bottom: 30px;
+  margin-top: 0;
+}
+
+.internships-section,
+.subscription-history {
+  width: 48%; /* Занимает 48% ширины контейнера (оставляйте небольшой отступ для избежания переполнения) */
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-right: 1%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  /* Стили для прокручиваемой области */
+  overflow-y: auto; /* Включаем вертикальную прокрутку при необходимости */
+  max-height: 300px; /* Максимальная высота контейнера для прокручиваемого списка */
+
+  /* Красивая прокрутка */
+  scrollbar-width: thin; /* Ширина полосы прокрутки */
+  scrollbar-color: #007bff #ffffff; /* Цвет полосы прокрутки и ее фона */
+}
+
+.internships-section {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  overflow-y: auto;
+  max-height: 300px;
+  scrollbar-width: thin;
+  scrollbar-color: #007bff #ffffff;
+}
+
+.internships-section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.internships-section::-webkit-scrollbar-thumb {
+  background-color: #007bff;
+  border-radius: 4px;
+}
+
+.internships-section::-webkit-scrollbar-thumb:hover {
+  background-color: #0056b3;
+}
+
+.internships-section h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #343a40;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #dee2e6; /* Добавляем рамку для всей таблицы */
+}
+
+table th,
+table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+table th {
+  background-color: #f8f9fa;
+  border-right: 1px solid #dee2e6; /* Добавляем рамку справа для заголовков */
+}
+
+table td {
+  background-color: #ffffff;
+  border-right: 1px solid #dee2e6; /* Добавляем рамку справа для ячеек данных */
+}
+
+table button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+table button:hover {
+  background-color: #0056b3;
+}
+
+table ul {
+  list-style: none;
+  padding: 0;
+}
+
+table ul li {
+  margin-bottom: 5px;
+}
+.subscription-history::-webkit-scrollbar-thumb {
+  background-color: #007bff; /* Цвет полосы прокрутки */
+  border-radius: 4px; /* Скругление углов полосы прокрутки */
+}
+
+/* Изменение цвета полосы прокрутки при наведении */
+.internships-section::-webkit-scrollbar-thumb:hover,
+.subscription-history::-webkit-scrollbar-thumb:hover {
+  background-color: #0056b3; /* Новый цвет полосы прокрутки при наведении */
+}
+
+.internships-section h4,
+.subscription-history h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #343a40; /* Цвет текста заголовка */
+}
+
+.internships-section ul,
+.subscription-history ul {
+  list-style: none; /* Убираем маркеры списка */
+  padding: 0;
+}
+
+.internships-section li,
+.subscription-history li {
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between; /* Равномерное распределение пространства между элементами списка */
+  align-items: center; /* Выравнивание элементов по центру */
+}
+
+.internships-section li button,
+.subscription-history li button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.internships-section li button:hover,
+.subscription-history li button:hover {
+  background-color: #007bff;
+}
+
+.subscription-history li:hover {
+  background-color: #ffffff; /* Изменение цвета фона при наведении */
+}
+
+.subscription-history li span {
+  color: #6c757d; /* Цвет текста даты */
+  font-size: 14px;
+  margin-right: 10px;
 }
