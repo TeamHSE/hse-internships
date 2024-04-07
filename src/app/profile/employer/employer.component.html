@@ -1,56 +1,24 @@
-<div class="events-section">
-  <h1>Manage Events</h1>
-
-  <!-- Add Event Form -->
-  <div *ngIf="showAddEventForm">
-    <h2>Add New Event</h2>
-    <div>
-      <label>Event Name</label>
-      <input placeholder="Event Name" [(ngModel)]="newEvent.name" />
-    </div>
-    <div>
-      <label>Date</label>
-      <input type="date" [(ngModel)]="newEvent.date" />
-    </div>
-    <div>
-      <button (click)="addEvent()">Add Event</button>
-    </div>
-  </div>
-
-  <!-- Edit Event Form -->
-  <div *ngIf="showEditEventForm">
-    <h2>Edit Event</h2>
-    <div>
-      <label>Event Name</label>
-      <input placeholder="Event Name" [(ngModel)]="selectedEvent.name" />
-    </div>
-    <div>
-      <label>Date</label>
-      <input type="date" [(ngModel)]="selectedEvent.date" />
-    </div>
-    <div>
-      <button (click)="saveEventChanges()">Save Changes</button>
-    </div>
-  </div>
-
-  <!-- View Events -->
+<div class="event-list">
+  <h3>Hello, {{ userMgmService.currentUser()?.email }}</h3>
   <div>
-    <h2>Events List</h2>
-    <ul>
-      <li *ngFor="let event of events">
-        {{ event.name }} - {{ event.date }}
-        <button (click)="editEvent(event)">Edit</button>
-      </li>
-    </ul>
+    <h2>Manage Your Events</h2>
+    <button class="btn btn-outline-primary" (click)="addEvent()">Add New</button>
   </div>
-
-  <!-- View Event Responses -->
-  <div *ngIf="selectedEventForResponses">
-    <h2>Responses for {{ selectedEventForResponses.name }}</h2>
-    <ul>
-      <li *ngFor="let response of selectedEventResponses">
-        {{ response.applicantName }} - {{ response.message }}
-      </li>
-    </ul>
+  <div class="event-cards">
+    <div class="event-card" *ngFor="let event of companyEvents()">
+      <h3>{{ event.name }}</h3>
+      <p><strong>Organizer:</strong> {{ event.organizerName }}</p>
+      <p><strong>Tags:</strong> {{ event.tags.join('; ') }}</p>
+      <p><strong>Type:</strong> {{ event.type }}</p>
+      <p><strong>Description:</strong> {{ event.description }}</p>
+      <p><strong>Responded:</strong> {{ event.responded.length > 0 ? event.responded.join('; ') : 'No responded' }}</p>
+      <button (click)="editEvent(event)">Edit</button>
+      <button class="mx-1" (click)="deleteEvent(event)">Delete</button>
+      <ul class="student-responses">
+        <li *ngFor="let response of event.responded">
+          {{ response.email }}
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
