@@ -16,7 +16,7 @@ server.ehlo(EMAIL_ADRESS)
 server.login(EMAIL_ADRESS, PASSWORD)
 
 app = Flask(__name__)
-CORS(app, origins=["https://intern-hse.netlify.app", "http://intern-hse.netlify.app", "intern-hse.netlify.app"], supports_credentials=True, methods=['GET', 'POST'])
+CORS(app, origins=["https://66127c46a087c7a481e84be7--intern-hse.netlify.app/", "https://intern-hse.netlify.app", "http://intern-hse.netlify.app", "intern-hse.netlify.app"], supports_credentials=True, methods=['GET', 'POST'])
 
 @bot.message_handler()
 def send_chat_id(message):
