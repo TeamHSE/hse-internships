@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Status, UserMgmService } from "../user-mgm/user-mgm.service";
 
@@ -38,7 +38,8 @@ export class RegisterComponent {
       email: this.registerFormGroup.controls.emailField.value!,
       pass: this.registerFormGroup.controls.pass1Field.value!,
       tags: [],
-      status: this.statuses[this.selectStatus]
+      status: this.statuses[this.selectStatus],
+      subscribedTo: []
     })
   }
 

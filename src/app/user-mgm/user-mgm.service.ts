@@ -1,4 +1,5 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { computed, Injectable, signal, WritableSignal } from '@angular/core';
+import { Event } from "../internships-mgm/events-mgm.service";
 
 @Injectable({
   providedIn: 'root'
@@ -47,13 +48,27 @@ export class UserMgmService {
       })
     }
   }
+
+  subscribeCurrentToEvent(event: Event) {
+    this.currentUser.update(value => {
+      if ((value?.subscribedTo.indexOf(event) ?? -1) >= 0) {
+        return value
+      }
+      value?.subscribedTo.push(event)
+      localStorage.setItem("user", JSON.stringify(value))
+      return value
+    })
+  }
+
+  eventsForCurrent = computed(() => this.currentUser()?.subscribedTo)
 }
 
 interface AppUser {
   email: string
   pass: string
-  tags: Tag[],
+  tags: Tag[]
   status: Status
+  subscribedTo: Event[]
 }
 
 export enum Tag {
