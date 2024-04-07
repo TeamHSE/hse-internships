@@ -35,6 +35,14 @@ export class EventsMgmService {
     })
     localStorage.setItem("events", JSON.stringify(this.events()))
   }
+
+  updateEvent(event: Event) {
+    this.events.update(value => {
+      value = value.filter(e => e.id !== event.id)
+      value.push(event)
+      return value
+    })
+  }
 }
 
 export interface Event {

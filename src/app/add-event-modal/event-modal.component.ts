@@ -9,10 +9,10 @@ import { FormsModule } from "@angular/forms";
   imports: [
     FormsModule
   ],
-  templateUrl: './add-event-modal.component.html',
-  styleUrl: './add-event-modal.component.css'
+  templateUrl: './event-modal.component.html',
+  styleUrl: './event-modal.component.css'
 })
-export class AddEventModalComponent {
+export class EventModalComponent {
   protected event!: Event
   private callback: () => void = () => console.log('No submit set')
 
