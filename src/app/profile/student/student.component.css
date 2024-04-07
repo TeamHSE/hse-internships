@@ -146,16 +146,7 @@ h4 {
 .response-history li:nth-child(odd) span {
   color: #343a40;
 }
-/* Изменение стиля radio-кнопок при наведении */
-input[type="radio"]:hover {
-  outline: none; /* Убираем контур при наведении */
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Тень при наведении */
-}
 
-/* Стили для текста меток при наведении */
-label:hover {
-  color: #007bff; /* Изменяем цвет текста при наведении на метку */
-}
 .section-internshipsAndHistoty {
   display: flex;
   justify-content: space-between;
