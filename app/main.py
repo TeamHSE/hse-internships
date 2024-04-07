@@ -33,7 +33,7 @@ def send_email(target_email, event_name, text):
     server.sendmail(EMAIL_ADRESS, target_email, msg.as_string())
 
 # Endpoint to send messages via GET request
-@app.route('/send_message', methods=['GET'])
+@app.route('/send_message', methods=['POST'])
 def send_message():
     users = request.json.get('users')
     event_name  = request.json.get('event_name')
