@@ -1,4 +1,6 @@
-# Client
+# Internships & Projects App – HSE Hackathon April 2024
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/67631c4f-59e6-4c66-bc08-e868c33bb4a0/deploy-status)](https://app.netlify.com/sites/intern-hse/deploys)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.3.
 
