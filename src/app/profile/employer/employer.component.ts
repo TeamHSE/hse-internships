@@ -15,7 +15,8 @@ import { UserMgmService } from "../../user-mgm/user-mgm.service";
   styleUrls: [ './employer.component.css' ]
 })
 export class EmployerComponent {
-  companyEvents = signal<Event[]>([]);
+  companyEvents = signal<Event[]>(this.eventsMgmService.events()
+    .filter(value => value.organizerName === this.userMgmService.currentUser()?.email));
 
   constructor(protected eventsMgmService: EventsMgmService,
               protected userMgmService: UserMgmService,
@@ -34,7 +35,7 @@ export class EmployerComponent {
       endDate: new Date(),
       name: 'New event',
       type: EventType.internship,
-      organizerName: '',
+      organizerName: this.userMgmService.currentUser()?.email!,
       responded: [],
       description: ''
     }
