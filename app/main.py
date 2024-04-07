@@ -66,7 +66,7 @@ def send_message():
 
 # Function to run Flask and bot in separate threads
 def start_flask_and_bot():
-    threading.Thread(target=lambda: app.run(debug=True, use_reloader=False)).start()
+    threading.Thread(target=lambda: app.run(host="0.0.0.0", debug=True, use_reloader=False)).start()
     bot.polling()
 
 if __name__ == '__main__':
