@@ -14,11 +14,9 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
   styleUrls: [ './hse.component.css' ]
 })
 export class HseComponent {
-  constructor(private eventsMgmService: EventsMgmService,
+  constructor(protected eventsMgmService: EventsMgmService,
               private modalService: NgbModal) {
   }
-
-  events = computed(() => this.eventsMgmService.events())
 
   addEvent() {
     let modal = this.modalService.open(AddEventModalComponent)
@@ -41,5 +39,9 @@ export class HseComponent {
 
   editEvent(event: Event) {
 
+  }
+
+  deleteEvent(event: Event) {
+    this.eventsMgmService.deleteEvent(event)
   }
 }

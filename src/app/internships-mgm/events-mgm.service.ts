@@ -27,6 +27,14 @@ export class EventsMgmService {
     })
     localStorage.setItem("events", JSON.stringify(this.events()))
   }
+
+  deleteEvent(event: Event) {
+    this.events.update(value => {
+      value = value.filter(v => v != event)
+      return value
+    })
+    localStorage.setItem("events", JSON.stringify(this.events()))
+  }
 }
 
 export interface Event {
