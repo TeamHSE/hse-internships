@@ -94,6 +94,7 @@
         <th>Organizer</th>
         <th>Tags</th>
         <th>End Date</th>
+        <th>Applied</th>
         <th>Action</th>
       </tr>
       </thead>
@@ -103,6 +104,7 @@
         <td>{{ event.organizerName }}</td>
         <td>{{ getTags(event) }}</td>
         <td>{{ event.endDate | date : "dd.MM.Y" }}</td>
+        <td>{{ event.responded.length }}</td>
         <td>
           <button (click)="subscribeToEvent(event)">Subscribe</button>
         </td>
@@ -118,7 +120,7 @@
     }
     <ul>
       <li *ngFor="let event of subscribedEvents()">
-        {{ event.name }} - {{ event.endDate | date : "dd.mm.Y" }}
+        {{ event.name }} - {{ event.endDate | date : "dd.MM.Y" }}
       </li>
     </ul>
   </div>

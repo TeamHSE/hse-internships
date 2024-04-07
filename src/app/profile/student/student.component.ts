@@ -40,7 +40,7 @@ export class StudentComponent {
   summary = ''
   fullName = ''
 
-  events = computed(() => this.eventsMgmService.fetchEvents())
+  events = computed(() => this.eventsMgmService.events())
   selectedMethod = 'none';
   subscribedEvents = computed(() => this.userService.eventsForCurrent())
 
