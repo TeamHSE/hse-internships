@@ -1,0 +1,56 @@
+<div class="events-section">
+  <h1>Manage Events</h1>
+
+  <!-- Add Event Form -->
+  <div *ngIf="showAddEventForm">
+    <h2>Add New Event</h2>
+    <div>
+      <label>Event Name</label>
+      <input placeholder="Event Name" [(ngModel)]="newEvent.name" />
+    </div>
+    <div>
+      <label>Date</label>
+      <input type="date" [(ngModel)]="newEvent.date" />
+    </div>
+    <div>
+      <button (click)="addEvent()">Add Event</button>
+    </div>
+  </div>
+
+  <!-- Edit Event Form -->
+  <div *ngIf="showEditEventForm">
+    <h2>Edit Event</h2>
+    <div>
+      <label>Event Name</label>
+      <input placeholder="Event Name" [(ngModel)]="selectedEvent.name" />
+    </div>
+    <div>
+      <label>Date</label>
+      <input type="date" [(ngModel)]="selectedEvent.date" />
+    </div>
+    <div>
+      <button (click)="saveEventChanges()">Save Changes</button>
+    </div>
+  </div>
+
+  <!-- View Events -->
+  <div>
+    <h2>Events List</h2>
+    <ul>
+      <li *ngFor="let event of events">
+        {{ event.name }} - {{ event.date }}
+        <button (click)="editEvent(event)">Edit</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- View Event Responses -->
+  <div *ngIf="selectedEventForResponses">
+    <h2>Responses for {{ selectedEventForResponses.name }}</h2>
+    <ul>
+      <li *ngFor="let response of selectedEventResponses">
+        {{ response.applicantName }} - {{ response.message }}
+      </li>
+    </ul>
+  </div>
+</div>

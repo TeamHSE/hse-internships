@@ -1,0 +1,84 @@
+<div class="container">
+  <div
+    *ngIf="currentUser()!.status === status.Student"
+    class="preferences-section">
+    <h1>Manage your preferences</h1>
+    <h4>Mailing list receipt method</h4>
+    <div>
+      <label>e-Mail</label>
+      <input type="radio" />
+    </div>
+    <div>
+      <label>Telegram</label>
+      <input type="radio" />
+    </div>
+    <div class="tags">
+      <div class="tags-your">
+        <h4>Your tags</h4>
+        <p *ngIf="currentUser()!.tags.length === 0">No tags for you</p>
+        <p *ngFor="let tag of parseEnums(currentUser()!.tags)">
+          {{ tag }}
+          <button (click)="removeTagHandle(tag)">Remove</button>
+        </p>
+      </div>
+      <div class="tags-select">
+        <h4>Choose tags</h4>
+        <p *ngFor="let tag of allTags">
+          {{ tag }}
+          <button (click)="addTagHandle(tag)">Add</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <h1>Manage Your CV</h1>
+    <div>
+      <label>Full Name</label>
+      <input placeholder="Full Name" [(ngModel)]="fullName" />
+    </div>
+    <div>
+      <label>Educational Program</label>
+      <input
+        placeholder="Educational Program"
+        [(ngModel)]="educationalProgram"
+      />
+    </div>
+    <div>
+      <label>Course Number</label>
+      <input
+        placeholder="Course Number"
+        type="number"
+        [(ngModel)]="courseNumber"
+      />
+    </div>
+    <div>
+      <label>Experience</label>
+      <input placeholder="Experience" [(ngModel)]="experience" />
+    </div>
+    <div>
+      <label>Current Job (optional)</label>
+      <input placeholder="Current Job" [(ngModel)]="currentJob" />
+    </div>
+    <div>
+      <label>Skills</label>
+      <textarea placeholder="Write Your Skills" [(ngModel)]="skills"></textarea>
+    </div>
+    <div>
+      <label>Summary</label>
+      <textarea
+        placeholder="Write more about Yourself"
+        [(ngModel)]="summary"
+      ></textarea>
+    </div>
+  </div>
+</div>
+<div class="internships-section">
+  <h4>Internship subscriptions</h4>
+  <ul>
+    <li *ngFor="let event of events()">
+      {{ event.name }}
+<!--      <button (click)="subscribeToInternship(internship)">Subscribe</button>-->
+    </li>
+  </ul>
+</div>

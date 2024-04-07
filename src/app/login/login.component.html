@@ -1,0 +1,39 @@
+<div class="login-container">
+  <h1>Sign up</h1>
+
+  <form [formGroup]="loginFormGroup" (submit)="loginHandle()">
+    <div>
+      <label>Email</label>
+      <input
+        formControlName="emailField"
+        type="email"
+        placeholder="Input email"
+      />
+    </div>
+
+    <div>
+      <label>Password</label>
+      <input
+        formControlName="passwordField"
+        type="password"
+        placeholder="Input password"
+      />
+    </div>
+
+    <div>
+      <label>Sign up as</label>
+      <select
+        #status
+        name="status"
+        id="status"
+        (change)="onSelectedStatus(status.value)"
+      >
+        <option default>Student</option>
+        <option>HSE</option>
+        <option>Employer</option>
+      </select>
+    </div>
+
+    <button type="submit">Log In</button>
+  </form>
+</div>
