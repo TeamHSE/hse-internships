@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Tag } from "../user-mgm/user-mgm.service";
+import { AppUser, Tag } from "../user-mgm/user-mgm.service";
 
 @Injectable({
   providedIn: 'root'
@@ -7,27 +7,32 @@ import { Tag } from "../user-mgm/user-mgm.service";
 export class EventsMgmService {
 
   constructor() {
+    localStorage.setItem("events", JSON.stringify([ {
+      name: 'Yandex Spring School',
+      type: EventType.internship,
+      organizerName: 'Yandex',
+      tags: [ Tag.IT, Tag.DS, Tag.Internship ],
+      endDate: new Date(),
+      responded: []
+    } ]))
   }
 
   fetchEvents(): Event[] {
-    return [
-      {
-        name: 'Yandex Spring School',
-        type: EventType.internship,
-        organizerName: 'Yandex',
-        tags: [ Tag.IT, Tag.DS, Tag.Internship ],
-        endDate: new Date()
-      }
-    ]
+    let events = localStorage.getItem("events")
+    if (events === null) {
+      return []
+    }
+    return JSON.parse(events)
   }
 }
 
-interface Event {
+export interface Event {
   name: string
-  type: EventType,
-  tags: Tag[],
+  type: EventType
+  tags: Tag[]
   organizerName: string
   endDate: Date
+  responded: AppUser[]
 }
 
 enum EventType {

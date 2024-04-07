@@ -51,11 +51,12 @@ export class UserMgmService {
 
   subscribeCurrentToEvent(event: Event) {
     this.currentUser.update(value => {
-      if ((value?.subscribedTo.indexOf(event) ?? -1) >= 0) {
+      if (value === null || (value.subscribedTo.indexOf(event) ?? -1) >= 0) {
         return value
       }
-      value?.subscribedTo.push(event)
+      value.subscribedTo.push(event)
       localStorage.setItem("user", JSON.stringify(value))
+      event.responded.push(value)
       return value
     })
   }
@@ -63,7 +64,7 @@ export class UserMgmService {
   eventsForCurrent = computed(() => this.currentUser()?.subscribedTo)
 }
 
-interface AppUser {
+export interface AppUser {
   email: string
   pass: string
   tags: Tag[]
