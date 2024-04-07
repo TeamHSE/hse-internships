@@ -4,6 +4,7 @@ EMAIL_ADRESS = "h3.r@yandex.ru"
 PASSWORD="xmeryvetvukgkfss"
 import telebot
 from flask import Flask, request
+from flask_cors import CORS
 import threading
 import smtplib as smtp
 from email.mime.text import MIMEText
@@ -16,6 +17,7 @@ server.ehlo(EMAIL_ADRESS)
 server.login(EMAIL_ADRESS, PASSWORD)
 
 app = Flask(__name__)
+CORS(app, origins="https://intern-hse.netlify.app/", supports_credentials=True, methods=['GET', 'POST'])
 
 @bot.message_handler()
 def send_chat_id(message):
