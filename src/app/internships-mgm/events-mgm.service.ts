@@ -42,9 +42,9 @@ export class EventsMgmService {
         },
       ],
       "event_name": event.name,
-      "event_link": event.organizerName
+      "event_link": event.organizerName.length > 0 ? event.organizerName.length : "none"
     });
-    fetch("http://188.225.82.68:5000/send_message", {
+    fetch("https://hack-bot.cleverapps.io/send_message", {
       method: "POST",
       headers: myHeaders,
       body: raw,
