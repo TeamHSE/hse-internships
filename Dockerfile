@@ -1,10 +1,9 @@
 FROM python:3.12-alpine3.18
 
-COPY requirements.txt /app
+COPY requirements.txt requirements.txt 
 
-RUN pip install -r /app/requirements.txt
+RUN pip install -r requirements.txt
 
-COPY . /app
-
-CMD ["python", "app/main.py"]
+COPY ./app/main.py main.py
+CMD ["python", "main.py"]
 
