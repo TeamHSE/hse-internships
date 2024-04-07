@@ -4,3 +4,7 @@ services:
     ports:
       - "5000:5000"
     restart: always
+    environment:
+      - BOT_TOKEN=6513371989:AAHLdPxtW2y7xJm81LAirrr8FQ1k6atF9FI
+      - EMAIL=h3.r@yandex.ru
+      - PASSWORD=xmeryvetvukgkfss

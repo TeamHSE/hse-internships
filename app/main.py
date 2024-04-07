@@ -1,7 +1,7 @@
-
-TOKEN = '6513371989:AAHLdPxtW2y7xJm81LAirrr8FQ1k6atF9FI'
-EMAIL_ADRESS = "h3.r@yandex.ru"
-PASSWORD="xmeryvetvukgkfss"
+import os
+TOKEN = os.environ.get("BOT_TOKEN")
+EMAIL_ADRESS = os.environ.get("EMAIL")
+PASSWORD=os.environ.get("PASSWORD")
 import telebot
 from flask import Flask, request
 from flask_cors import CORS
@@ -9,7 +9,6 @@ import threading
 import smtplib as smtp
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-
 
 bot = telebot.TeleBot(TOKEN)
 server = smtp.SMTP_SSL('smtp.yandex.com.tr:465')
