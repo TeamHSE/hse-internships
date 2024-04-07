@@ -1,1 +1,20 @@
-<p>hse works!</p>
+<div class="event-list">
+  <div>
+    <h2>Events List</h2>
+    <button class="btn btn-outline-primary" (click)="addEvent()">Add New</button>
+  </div>
+  <div class="event-cards">
+    <div class="event-card" *ngFor="let event of events()">
+      <h3>{{ event.name }}</h3>
+      <p><strong>Organizer:</strong> {{ event.organizerName }}</p>
+      <p><strong>Tags:</strong> {{ event.tags.join('; ') }}</p>
+      <p><strong>Type:</strong> {{ event.type }}</p>
+      <button (click)="editEvent(event)">Edit</button>
+      <ul class="student-responses">
+        <li *ngFor="let response of event.responded">
+          {{ response.email }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
