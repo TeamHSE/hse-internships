@@ -3,8 +3,13 @@
     <app-student></app-student>
   </div>
 
-  <div *ngIf="currentUser()!.status === status.Hse" class="preferences-section"></div>
+  <div *ngIf="currentUser()!.status === status.Hse" class="preferences-section">
+    <app-hse></app-hse>
+  </div>
 
   <div *ngIf="currentUser()!.status === status.Employer" class="preferences-section">
+    <app-employer></app-employer>
   </div>
+} @else {
+  <h3>Please log in to system to see Events and your profile</h3>
 }

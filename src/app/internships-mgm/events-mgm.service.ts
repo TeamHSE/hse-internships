@@ -26,6 +26,35 @@ export class EventsMgmService {
       return value
     })
     localStorage.setItem("events", JSON.stringify(this.events()))
+
+    this.callApi(event)
+  }
+
+  private callApi(event: Event) {
+    const myHeaders = new Headers()
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      "users": [
+        {
+          "target_id": "289448982",
+          "target": "telegram"
+        },
+      ],
+      "event_name": event.name,
+      "event_link": event.organizerName
+    });
+    fetch("http://188.225.82.68:5000/send_message", {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    })
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.error(error));
+
+
   }
 
   deleteEvent(event: Event) {
