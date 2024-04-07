@@ -62,6 +62,11 @@ export class UserMgmService {
   }
 
   eventsForCurrent = computed(() => this.currentUser()?.subscribedTo)
+
+  login(user: AppUser) {
+    this.currentUser.set(user)
+    localStorage.setItem("user", JSON.stringify(user))
+  }
 }
 
 export interface AppUser {

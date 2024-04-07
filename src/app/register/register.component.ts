@@ -33,7 +33,6 @@ export class RegisterComponent {
   }
 
   registerHandle() {
-    alert(`${ this.registerFormGroup.controls.emailField.value } ${ this.registerFormGroup.controls.pass1Field.value } ${ this.registerFormGroup.controls.pass2Field.value } ${ this.selectStatus }`)
     this.userService.register({
       email: this.registerFormGroup.controls.emailField.value!,
       pass: this.registerFormGroup.controls.pass1Field.value!,
