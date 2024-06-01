@@ -1,0 +1,127 @@
+<div class="container">
+  <div
+    *ngIf="currentUser()!.status === status.Student"
+    class="preferences-section">
+    <h1>Manage your preferences</h1>
+    <div
+      class="form-floating d-inline-flex p-1 m-1 ps-3 me-2 align-items-center">
+      <p class="form-label me-3 mb-0">Mailing list receipt method</p>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="selectedMethod" [value]="'email'" class="form-check-input" type="radio" id="email"
+               name="mail-method">
+        <label class="form-check-label" for="email">e-Mail</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="selectedMethod" [value]="'telegram'" class="form-check-input" type="radio" id="tg"
+               name="mail-method">
+        <label class="form-check-label" for="tg">Telegram</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input [(ngModel)]="selectedMethod" [value]="'none'" class="form-check-input" type="radio" id="none"
+               name="mail-method">
+        <label class="form-check-label" for="none">None</label>
+      </div>
+    </div>
+    <div class="tags">
+      <div class="tags-your">
+        <h4>Your tags</h4>
+        <p *ngIf="currentUser()!.tags.length === 0">No tags for you</p>
+        <div class="m-2 d-flex justify-content-between align-items-center"
+             *ngFor="let tag of parseEnums(currentUser()!.tags)">
+          <label class="w-75">{{ tag }}</label>
+          <button class="btn btn-danger" (click)="removeTagHandle(tag)">Remove</button>
+        </div>
+      </div>
+      <div class="tags-select">
+        <h4>Choose tags</h4>
+        <div class="m-2 d-flex justify-content-between align-items-center" *ngFor="let tag of allTags">
+          <label>{{ tag }}</label>
+          <button class="btn btn-primary" (click)="addTagHandle(tag)">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cv-section">
+    <h1>Manage Your CV</h1>
+    <div>
+      <label>Full Name</label>
+      <input placeholder="Full Name" [(ngModel)]="fullName"/>
+    </div>
+    <div>
+      <label>Educational Program</label>
+      <input
+        placeholder="Educational Program"
+        [(ngModel)]="educationalProgram"
+      />
+    </div>
+    <div>
+      <label>Course Number</label>
+      <input
+        placeholder="Course Number"
+        type="number"
+        [(ngModel)]="courseNumber"
+      />
+    </div>
+    <div>
+      <label>Experience</label>
+      <input placeholder="Experience" [(ngModel)]="experience"/>
+    </div>
+    <div>
+      <label>Current Job</label>
+      <input placeholder="Current Job" [(ngModel)]="currentJob"/>
+    </div>
+    <div>
+      <label>Skills</label>
+      <textarea placeholder="Write Your Skills" [(ngModel)]="skills"></textarea>
+    </div>
+    <div>
+      <label>Summary</label>
+      <textarea
+        placeholder="Write more about Yourself"
+        [(ngModel)]="summary"
+      ></textarea>
+    </div>
+  </div>
+</div>
+<div class="section-internshipsAndHistoty">
+  <div class="internships-section">
+    <h4>Internship subscriptions</h4>
+    <table>
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Organizer</th>
+        <th>Tags</th>
+        <th>End Date</th>
+        <th>Applied</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let event of events()">
+        <td>{{ event.name }}</td>
+        <td>{{ event.organizerName }}</td>
+        <td>{{ getTags(event) }}</td>
+        <td>{{ event.endDate | date : "dd.MM.Y" }}</td>
+        <td>{{ event.responded.length }}</td>
+        <td>
+          <button (click)="subscribeToEvent(event)">Subscribe</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="subscription-history">
+    <h1>Subscription History</h1>
+    @if (subscribedEvents() === undefined || subscribedEvents()?.length === 0) {
+      <h6>No events</h6>
+    }
+    <ul>
+      <li *ngFor="let event of subscribedEvents()">
+        {{ event.name }} - {{ event.endDate | date : "dd.MM.Y" }}
+      </li>
+    </ul>
+  </div>
+</div>

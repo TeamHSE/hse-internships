@@ -1,0 +1,24 @@
+<div class="event-list">
+  <h3>Hello, {{ userMgmService.currentUser()?.email }}</h3>
+  <div>
+    <h2>Manage Your Events</h2>
+    <button class="btn btn-outline-primary" (click)="addEvent()">Add New</button>
+  </div>
+  <div class="event-cards">
+    <div class="event-card" *ngFor="let event of companyEvents()">
+      <h3>{{ event.name }}</h3>
+      <p><strong>Organizer:</strong> {{ event.organizerName }}</p>
+      <p><strong>Tags:</strong> {{ event.tags.join('; ') }}</p>
+      <p><strong>Type:</strong> {{ event.type }}</p>
+      <p><strong>Description:</strong> {{ event.description }}</p>
+      <p><strong>Responded:</strong> {{ event.responded.length > 0 ? event.responded.join('; ') : 'No respondents' }}</p>
+      <button (click)="editEvent(event)">Edit</button>
+      <button class="mx-1" (click)="deleteEvent(event)">Delete</button>
+      <ul class="student-responses">
+        <li *ngFor="let response of event.responded">
+          {{ response.email }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,136 @@
+<div class="register-container">
+  <h1>Register</h1>
+
+  <form [formGroup]="registerFormGroup" (submit)="registerHandle()">
+    <div>
+      <label>Email</label>
+      <input
+        formControlName="emailField"
+        type="email"
+        placeholder="Input email"
+      />
+    </div>
+
+    <div>
+      <label>Password</label>
+      <input
+        formControlName="pass1Field"
+        type="password"
+        placeholder="Input password"
+      />
+    </div>
+
+    <div>
+      <label>Repeat password</label>
+      <input
+        formControlName="pass2Field"
+        type="password"
+        placeholder="Input password again"
+      />
+    </div>
+
+    <div>
+      <label>Register as</label>
+      <select
+        #status
+        (change)="onSelectedStatus(status.value)"
+        name="status"
+        id="status"
+      >
+        <option default>Student</option>
+        <option>HSE</option>
+      </select>
+    </div>
+    <button type="submit">Register</button>
+  </form>
+</div>
+<style>
+  /* Стили для контейнера формы */
+  .register-container {
+    background-color: #f5f5f5; /* Бледно-серый фон */
+    border: 1px solid #ccc; /* Светло-серая рамка */
+    border-radius: 12px; /* Закругленные углы */
+    padding: 30px; /* Внутренний отступ */
+    width: 400px; /* Ширина формы */
+    margin: 0 auto; /* Центрирование по горизонтали */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+    transition: transform 0.3s ease-in-out; /* Анимация при наведении */
+  }
+
+  .register-container:hover {
+    transform: translateY(-5px); /* Поднять форму при наведении */
+  }
+
+  /* Стили для заголовка */
+  .register-container h1 {
+    color: #336699; /* Синий цвет заголовка */
+    text-align: center; /* Выравнивание заголовка по центру */
+    margin-bottom: 20px; /* Отступ снизу от заголовка */
+    font-size: 28px; /* Размер шрифта заголовка */
+  }
+
+  /* Стили для лейблов */
+  .register-container label {
+    color: #336699; /* Синий цвет текста лейблов */
+    font-weight: bold;
+    margin-bottom: 8px; /* Отступ снизу от лейблов */
+  }
+
+  /* Стили для инпутов и селекта */
+  .register-container input[type="email"],
+  .register-container input[type="password"],
+  .register-container select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc; /* Светло-серая рамка */
+    border-radius: 8px;
+    box-sizing: border-box; /* Учитывать padding и border в общей ширине */
+    transition: border-color 0.3s ease-in-out; /* Анимация при фокусе */
+  }
+
+  .register-container input[type="email"]:focus,
+  .register-container input[type="password"]:focus,
+  .register-container select:focus {
+    border-color: #336699; /* Изменить цвет рамки при фокусе */
+  }
+
+  /* Стили для кнопки */
+  .register-container button {
+    background-color: #336699; /* Синий цвет кнопки */
+    color: white; /* Белый цвет текста на кнопке */
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px; /* Размер шрифта кнопки */
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out; /* Анимация при наведении */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+  }
+
+  .register-container button:hover {
+    background-color: #007bff; /* Ярко-синий цвет при наведении */
+    transform: translateY(-3px); /* Поднять кнопку при наведении */
+  }
+
+  /* Стили для селекта */
+  .register-container select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc; /* Светло-серая рамка */
+    border-radius: 8px;
+    box-sizing: border-box; /* Учитывать padding и border в общей ширине */
+    transition: border-color 0.3s ease-in-out; /* Анимация при фокусе */
+  }
+
+  .register-container select:focus {
+    border-color: #336699; /* Изменить цвет рамки при фокусе */
+  }
+
+  /* Отступ для элементов формы */
+  .register-container div {
+    margin-bottom: 20px;
+  }
+</style>

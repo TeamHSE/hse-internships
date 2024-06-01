@@ -1,0 +1,132 @@
+.container {
+  margin: 0 auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Стили для формы добавления мероприятий */
+.add-event-form {
+  flex: 0 0 100%;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.add-event-form h2 {
+  font-size: 24px;
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+.add-event-form label {
+  font-weight: bold;
+  color: #343a40;
+}
+
+.add-event-form input,
+.add-event-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.add-event-form input:focus,
+.add-event-form textarea:focus {
+  border-color: #007bff;
+}
+
+.add-event-form button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-event-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Стили для списка мероприятий */
+.event-list {
+  flex: 0 0 100%;
+}
+
+.event-list h2 {
+  font-size: 24px;
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+.event-cards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.event-card {
+  flex: 0 0 calc(33.33% - 20px);
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.event-card h3 {
+  font-size: 20px;
+  color: #343a40;
+  margin-bottom: 10px;
+}
+
+.event-card p {
+  color: #6c757d;
+  margin-bottom: 10px;
+}
+
+.event-card button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.event-card button:hover {
+  background-color: #0056b3;
+}
+
+/* Стили для списка ответов студентов */
+.student-responses {
+  list-style-type: none;
+  padding: 0;
+}
+
+.student-responses li {
+  margin-bottom: 10px;
+}
+
+.student-responses li button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.student-responses li button:hover {
+  background-color: #0056b3;
+}
