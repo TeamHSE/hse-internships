@@ -1,0 +1,13 @@
+services:
+  sender:
+    env_file:
+      - .prod.env
+    container_name: sender
+    build: ./backend/sender/
+    ports:
+      - "5000:5000"
+    restart: always
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - EMAIL=${EMAIL}
+      - PASSWORD=${PASSWORD}
