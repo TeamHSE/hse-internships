@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h4 class="modal-title">Event</h4>
+  <button class="btn-close" aria-label="close"
+          (click)="activeModal.dismiss('x-btn clicked')">
+  </button>
+</div>
+<div class="modal-body">
+  <div class="add-event-form">
+    <div class="form-group">
+      <label for="eventName">Name</label>
+      <input type="text" id="eventName" name="eventName" [(ngModel)]="event.name" required/>
+    </div>
+    <div class="form-group">
+      <label for="eventDescription">Description</label>
+      <textarea id="eventDescription" name="eventDescription" [(ngModel)]="event.description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="organizerName">Organizer</label>
+      <input type="text" id="organizerName" name="organizerName" [(ngModel)]="event.organizerName" required/>
+    </div>
+    <div class="form-group">
+      <label for="eventTags">Tags</label>
+      <input type="text" id="eventTags" name="eventTags" placeholder="backend, frontend, CS, system analysis"
+             [(ngModel)]="event.tags" required/>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-outline-dark"
+          (click)="activeModal.close('Close btn clicked')">
+    Close
+  </button>
+  <button class="btn btn-primary"
+          (click)="handleSubmit()">
+    Submit
+  </button>
+</div>
