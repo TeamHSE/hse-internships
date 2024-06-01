@@ -1,7 +1,7 @@
 services:
   sender:
     env_file:
-      - .prod.env
+      - .env
     container_name: sender
     build: ./backend/sender/
     ports:
@@ -11,3 +11,10 @@ services:
       - BOT_TOKEN=${BOT_TOKEN}
       - EMAIL=${EMAIL}
       - PASSWORD=${PASSWORD}
+  frontend:
+    container_name: frontend
+    build: ./frontend/
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4200:4200
