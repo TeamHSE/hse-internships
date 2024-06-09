@@ -33,13 +33,11 @@ export class RegisterComponent {
   }
 
   registerHandle() {
-    this.userService.register({
-      email: this.registerFormGroup.controls.emailField.value!,
-      pass: this.registerFormGroup.controls.pass1Field.value!,
-      tags: [],
-      status: this.statuses[this.selectStatus],
-      subscribedTo: []
-    })
+    this.userService.register(
+      this.registerFormGroup.controls.emailField.value!,
+      this.registerFormGroup.controls.pass1Field.value!,
+      this.statuses[this.selectStatus]
+    )
   }
 
   onSelectedStatus(value: string) {

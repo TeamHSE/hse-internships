@@ -1,0 +1,265 @@
+openapi: 3.0.0
+info:
+  title: HSE Internships API
+  version: 1.0.0
+tags:
+  - name: Users Management
+    description: Manage users auth and info
+  - name: Events
+    description: Manage events, internships and projects
+paths:
+  /api/login:
+    post:
+      security: []
+      tags:
+        - Users Management
+      summary: Log in a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: User logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppUser'
+  /api/register:
+    post:
+      security: []
+      tags:
+        - Users Management
+      summary: Register a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                status:
+                  type: string
+                  enum: ['HSE', 'Student', 'Employer']
+      responses:
+        '200':
+          description: User logged in
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppUser'
+  /api/logout:
+    post:
+      tags:
+        - Users Management
+      summary: Log out a user
+      responses:
+        '200':
+          description: User logged out
+  /api/users/{userId}/tags:
+    post:
+      tags:
+        - Users Management
+      summary: Add a tag to a user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "User ID  is Email"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag:
+                  type: string
+                  description: "In example: IT, DS, Backend, Frontend, Management, Internship, Project, Event, ..."
+      responses:
+        '200':
+          description: Tag added to user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppUser'
+  /api/users/{userId}/tags/{tag}:
+    delete:
+      tags:
+        - Users Management
+      summary: Remove a tag from a user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "User ID  is Email"
+        - name: tag
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "In example: IT, DS, Backend, Frontend, Management, Internship, Project, Event, ..."
+      responses:
+        '200':
+          description: Tag removed from user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppUser'
+  /api/users/{userId}/events/{eventId}:
+    post:
+      tags:
+        - Users Management
+      summary: Subscribe a user to an event
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: "User ID  is Email"
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User subscribed to event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppUser'
+  /api/events:
+    get:
+      tags:
+        - Events
+      summary: Fetch all events
+      responses:
+        '200':
+          description: A list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+    post:
+      tags:
+        - Events
+      summary: Add a new event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Event created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+  /api/events/{eventId}:
+    delete:
+      tags:
+        - Events
+      summary: Delete an event
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Event deleted
+    put:
+      tags:
+        - Events
+      summary: Update an event
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Event'
+      responses:
+        '200':
+          description: Event updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+components:
+  schemas:
+    AppUser:
+      type: object
+      properties:
+        email:
+          type: string
+          description: "Is userId"
+        pass:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+        subscribedTo:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        type:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        organizerName:
+          type: string
+        endDate:
+          type: string
+          format: date-time
+        responded:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppUser'
+        description:
+          type: string
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+security:
+  - BasicAuth: []
