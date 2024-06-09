@@ -1,36 +1,43 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
-import { AppUser, Tag } from "../user-mgm/user-mgm.service";
+import { AppUser } from "../user-mgm/user-mgm.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventsMgmService {
 
-  public events: WritableSignal<Event[]> = signal(this.fetchEvents())
+  public events: WritableSignal<Event[]> = signal([])
 
   constructor() {
-    this.events.set(this.fetchEvents())
+    this.fetchEvents()
   }
 
-  private fetchEvents(): Event[] {
-    let events = localStorage.getItem("events")
-    if (events === null) {
-      return []
-    }
-    return JSON.parse(events)
+  private fetchEvents() {
+    fetch('/api/events', {
+      method: 'GET',
+    })
+      .then(response => response.json())
+      .then(data => this.events.set(data));
   }
 
   addEvent(event: Event) {
-    this.events.update(value => {
-      value.push(event)
-      return value
+    fetch('/api/events', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(event),
     })
-    localStorage.setItem("events", JSON.stringify(this.events()))
+      .then(response => response.json())
+      .then(data => this.events.update(value => {
+        value.push(data);
+        return value;
+      }));
 
-    this.callApi(event)
+    this.sendNotification(event)
   }
 
-  private callApi(event: Event) {
+  private sendNotification(event: Event) {
     const myHeaders = new Headers()
     myHeaders.append("Content-Type", "application/json");
 
@@ -53,40 +60,42 @@ export class EventsMgmService {
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.error(error));
-
-
   }
 
   deleteEvent(event: Event) {
-    this.events.update(value => {
-      value = value.filter(v => v != event)
-      return value
+    fetch(`/api/events/${event.id}`, {
+      method: 'DELETE',
     })
-    localStorage.setItem("events", JSON.stringify(this.events()))
+      .then(() => this.events.update(value => {
+        value = value.filter(v => v != event);
+        return value;
+      }));
   }
 
   updateEvent(event: Event) {
-    this.events.update(value => {
-      value = value.filter(e => e.id !== event.id)
-      value.push(event)
-      return value
+    fetch(`/api/events/${event.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(event),
     })
+      .then(response => response.json())
+      .then(data => this.events.update(value => {
+        value = value.filter(e => e.id !== data.id);
+        value.push(data);
+        return value;
+      }));
   }
 }
 
 export interface Event {
   id: number
   name: string
-  type: EventType
-  tags: Tag[]
+  type: string
+  tags: string[]
   organizerName: string
   endDate: Date
   responded: AppUser[]
   description: string
-}
-
-export enum EventType {
-  internship = 'Internship',
-  project = 'Project',
-  event = 'Event',
 }

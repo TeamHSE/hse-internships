@@ -32,13 +32,9 @@ export class LoginComponent {
   }
 
   loginHandle() {
-    this.userService.login({
-      email: this.loginFormGroup.controls.emailField.value!,
-      pass: this.loginFormGroup.controls.passwordField.value!,
-      tags: [],
-      status: this.statuses[this.selectedStatus],
-      subscribedTo: []
-    })
+    this.userService.login(
+      this.loginFormGroup.controls.emailField.value!,
+      this.loginFormGroup.controls.passwordField.value!)
   }
 
   statuses: { [key: string]: Status } = {
