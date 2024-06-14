@@ -52,13 +52,12 @@ def insert_data(conn, value):
         ''', (value,))
         conn.commit()
 
-def extract_info(soup, conn):
+def extract_info(soup, conn, url):
     options = webdriver.ChromeOptions()
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    url = 'https://vk.com/@-64944123-vakansii-ot-100624'
     driver.get(url)
     driver.implicitly_wait(10)
     article_element = driver.find_element(By.CLASS_NAME, 'article_view')
@@ -82,7 +81,7 @@ def job():
     if soup is not None:
         conn = psycopg2.connect(**db_params)
         create_tables(conn)
-        extract_info(soup, conn)
+        extract_info(soup, conn, url)
         conn.close()
         parsed_today = True
 
