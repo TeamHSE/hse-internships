@@ -26,6 +26,8 @@ parsed_today = False
 
 def fetch_and_parse(url):
     response = requests.get(url)
+    if not response.text:
+        return None
     soup = BeautifulSoup(response.text, 'html.parser')
 
     if soup.title and "Ошибка | ВКонтакте" in soup.title.string:
@@ -33,6 +35,7 @@ def fetch_and_parse(url):
         return None
 
     return soup
+
 
 def create_tables(conn):
     with conn.cursor() as cursor:
@@ -58,13 +61,15 @@ def extract_info(soup, conn, url):
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    driver.get(url)
-    driver.implicitly_wait(10)
-    article_element = driver.find_element(By.CLASS_NAME, 'article_view')
-    article_html = article_element.get_attribute('outerHTML')
-    driver.quit()
+    try:
+        driver.get(url)
+        driver.implicitly_wait(10)
+        article_element = driver.find_element(By.CLASS_NAME, 'article_view')
+        article_html = article_element.get_attribute('outerHTML')
+        insert_data(conn, article_html)
+    finally:
+        driver.quit()
 
-    insert_data(conn, article_html)
 
 def job():
     global parsed_today
