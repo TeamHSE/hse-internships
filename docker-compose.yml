@@ -26,18 +26,18 @@ services:
     depends_on:
       - db_parse_results
     environment:
-      - DB_HOST=${DB_HOST}
-      - DB_PORT=5432
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
+      - PARSER_DB_HOST=${PARSER_DB_HOST}
+      - PARSER_DB_PORT=5432
+      - PARSER_DB_NAME=${PARSER_DB_NAME}
+      - PARSER_DB_USER=${PARSER_DB_USER}
+      - PARSER_DB_PASSWORD=${PARSER_DB_PASSWORD}
   
   db_parse_results:
     image: postgres:13
-    container_name: ${DB_HOST}
+    container_name: ${PARSER_DB_HOST}
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${PARSER_DB_NAME}
+      POSTGRES_USER: ${PARSER_DB_USER}
+      POSTGRES_PASSWORD: ${PARSER_DB_PASSWORD}
     ports:
       - "5432:5432"
