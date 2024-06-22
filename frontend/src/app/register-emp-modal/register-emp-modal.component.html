@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Register new Employer</h4>
+  <h4 class="modal-title">Зарегистрировать нового представителя компании</h4>
   <button class="btn-close" aria-label="close"
           (click)="activeModal.dismiss('x-btn clicked')">
   </button>
@@ -7,22 +7,24 @@
 <div class="modal-body">
   <div class="container">
     <div class="mb-3">
-      <label for="email" class="form-label">Email</label>
-      <input [(ngModel)]="employer.email" type="email" class="form-control" id="email" placeholder="Input email">
+      <label for="email" class="form-label">Электронная почта</label>
+      <input [(ngModel)]="employer.email" type="email" class="form-control" id="email" placeholder="Введите email">
     </div>
     <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input [(ngModel)]="employer.pass" type="password" class="form-control" id="password" placeholder="Input password">
+      <label for="password" class="form-label">Пароль</label>
+      <input [(ngModel)]="employer.pass" type="password" class="form-control" id="password"
+             placeholder="Введите password">
     </div>
   </div>
 
   <div class="modal-footer">
-  <button class="btn btn-outline-dark"
-          (click)="activeModal.close('Close btn clicked')">
-    Close
-  </button>
-  <button class="btn btn-primary"
-          (click)="handleSubmit()">
-    Submit
-  </button>
+    <button class="btn btn-outline-dark"
+            (click)="activeModal.close('Закрыть btn clicked')">
+      Закрыть
+    </button>
+    <button class="btn btn-primary"
+            (click)="handleSubmit()">
+      Подтвердить
+    </button>
+  </div>
 </div>

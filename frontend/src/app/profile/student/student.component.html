@@ -2,14 +2,14 @@
   <div
     *ngIf="currentUser()!.status === status.Student"
     class="preferences-section">
-    <h1>Manage your preferences</h1>
+    <h1>Управляйте своими настройками</h1>
     <div
       class="form-floating d-inline-flex p-1 m-1 ps-3 me-2 align-items-center">
-      <p class="form-label me-3 mb-0">Mailing list receipt method</p>
+      <p class="form-label me-3 mb-0">Способ получения уведомлений о новых событиях</p>
       <div class="form-check form-check-inline">
         <input [(ngModel)]="selectedMethod" [value]="'email'" class="form-check-input" type="radio" id="email"
                name="mail-method">
-        <label class="form-check-label" for="email">e-Mail</label>
+        <label class="form-check-label" for="email">Электронная почта</label>
       </div>
       <div class="form-check form-check-inline">
         <input [(ngModel)]="selectedMethod" [value]="'telegram'" class="form-check-input" type="radio" id="tg"
@@ -19,66 +19,66 @@
       <div class="form-check form-check-inline">
         <input [(ngModel)]="selectedMethod" [value]="'none'" class="form-check-input" type="radio" id="none"
                name="mail-method">
-        <label class="form-check-label" for="none">None</label>
+        <label class="form-check-label" for="none">Не получать уведомления</label>
       </div>
     </div>
     <div class="tags">
       <div class="tags-your">
-        <h4>Your tags</h4>
-        <p *ngIf="currentUser()!.tags.length === 0">No tags for you</p>
+        <h4>Теги, на которые вы подписаны</h4>
+        <p *ngIf="currentUser()!.tags.length === 0">Вы не подписаны ни на один тег событий</p>
         <div class="m-2 d-flex justify-content-between align-items-center"
-             *ngFor="let tag of parseEnums(currentUser()!.tags)">
+             *ngFor="let tag of currentUser()!.tags">
           <label class="w-75">{{ tag }}</label>
-          <button class="btn btn-danger" (click)="removeTagHandle(tag)">Remove</button>
+          <button class="btn btn-danger" (click)="removeTagHandle(tag)">Отписаться</button>
         </div>
       </div>
       <div class="tags-select">
-        <h4>Choose tags</h4>
+        <h4>Выберите теги, которые вам интересны</h4>
         <div class="m-2 d-flex justify-content-between align-items-center" *ngFor="let tag of allTags">
           <label>{{ tag }}</label>
-          <button class="btn btn-primary" (click)="addTagHandle(tag)">Add</button>
+          <button class="btn btn-primary" (click)="addTagHandle(tag)">Подписаться</button>
         </div>
       </div>
     </div>
   </div>
 
   <div class="cv-section">
-    <h1>Manage Your CV</h1>
+    <h1>Заполните ваше резюме для компаний-партнеров</h1>
     <div>
-      <label>Full Name</label>
-      <input placeholder="Full Name" [(ngModel)]="fullName"/>
+      <label>Полное имя</label>
+      <input placeholder="Полное имя" [(ngModel)]="fullName"/>
     </div>
     <div>
-      <label>Educational Program</label>
+      <label>Образовательная программа</label>
       <input
-        placeholder="Educational Program"
+        placeholder="Образовательная программа"
         [(ngModel)]="educationalProgram"
       />
     </div>
     <div>
-      <label>Course Number</label>
+      <label>Номер курса обучения</label>
       <input
-        placeholder="Course Number"
+        placeholder="Номер курса обучения"
         type="number"
         [(ngModel)]="courseNumber"
       />
     </div>
     <div>
-      <label>Experience</label>
-      <input placeholder="Experience" [(ngModel)]="experience"/>
+      <label>Опыт работы</label>
+      <input placeholder="Опыт работы" [(ngModel)]="experience"/>
     </div>
     <div>
-      <label>Current Job</label>
-      <input placeholder="Current Job" [(ngModel)]="currentJob"/>
+      <label>Текущее место работы</label>
+      <input placeholder="Текущее место работы" [(ngModel)]="currentJob"/>
     </div>
     <div>
-      <label>Skills</label>
-      <textarea placeholder="Write Your Skills" [(ngModel)]="skills"></textarea>
+      <label>Навыки</label>
+      <textarea placeholder="Write Your Навыки" [(ngModel)]="skills"></textarea>
     </div>
     <div>
-      <label>Summary</label>
+      <label>О себе</label>
       <textarea
-        placeholder="Write more about Yourself"
+        placeholder="Напишите, что еще хотели бы рассказать о себе"
         [(ngModel)]="summary"
       ></textarea>
     </div>
@@ -86,16 +86,16 @@
 </div>
 <div class="section-internshipsAndHistoty">
   <div class="internships-section">
-    <h4>Internship subscriptions</h4>
+    <h4>События</h4>
     <table>
       <thead>
       <tr>
-        <th>Name</th>
-        <th>Organizer</th>
-        <th>Tags</th>
-        <th>End Date</th>
-        <th>Applied</th>
-        <th>Action</th>
+        <th>Название</th>
+        <th>Организатор</th>
+        <th>Теги</th>
+        <th>Конечная дата приема заявок</th>
+        <th>Число подавших заявку</th>
+        <th>Действия</th>
       </tr>
       </thead>
       <tbody>
@@ -106,7 +106,7 @@
         <td>{{ event.endDate | date : "dd.MM.Y" }}</td>
         <td>{{ event.responded.length }}</td>
         <td>
-          <button (click)="subscribeToEvent(event)">Subscribe</button>
+          <button (click)="subscribeToEvent(event)">Подать заявку</button>
         </td>
       </tr>
       </tbody>
@@ -114,9 +114,9 @@
   </div>
 
   <div class="subscription-history">
-    <h1>Subscription History</h1>
+    <h1>События, на которые вы подали заявку</h1>
     @if (subscribedEvents() === undefined || subscribedEvents()?.length === 0) {
-      <h6>No events</h6>
+      <h6>Нет событий</h6>
     }
     <ul>
       <li *ngFor="let event of subscribedEvents()">

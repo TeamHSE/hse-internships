@@ -29,7 +29,7 @@ export class RegisterEmpModalComponent {
   }
 
   handleSubmit() {
-    this.userMgmService.register(this.employer)
+    this.userMgmService.register(this.employer.email, this.employer.pass, this.employer.status)
     this.activeModal.close()
   }
 }

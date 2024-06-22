@@ -1,5 +1,5 @@
 import { Component, computed } from '@angular/core';
-import { Status, Tag, UserMgmService } from "../../user-mgm/user-mgm.service";
+import { Status, UserMgmService } from "../../user-mgm/user-mgm.service";
 import { FormsModule } from "@angular/forms";
 import { DatePipe, NgForOf, NgIf } from "@angular/common";
 import { EventsMgmService, Event } from "../../internships-mgm/events-mgm.service";
@@ -20,22 +20,17 @@ export class StudentComponent {
 
   constructor(private userService: UserMgmService,
               private eventsMgmService: EventsMgmService) {
-    this.allTags = []
-    for (const tagKey in Tag) {
-      if (Number(tagKey) >= 0) {
-        this.allTags.push(Tag[tagKey])
-      }
-    }
+    this.allTags = [ 'ПИ', "БИ", "Программирование", "Архитектура ПО" ]
   }
 
   currentUser = computed(() => this.userService.currentUser())
 
   protected readonly status = Status;
   protected readonly allTags: string[] = []
-  educationalProgram = "Software Engineering"
+  educationalProgram = "Программная инженерия"
   courseNumber = 1
-  experience = "No experience"
-  currentJob = 'Unemployed'
+  experience = "Нет опыта"
+  currentJob = 'Студент'
   skills = ''
   summary = ''
   fullName = ''
@@ -48,17 +43,6 @@ export class StudentComponent {
     this.userService.addTagToCurrent(tag)
   }
 
-  parseEnums(tags: Tag[]) {
-    let tagsParsed = []
-    for (const tagKey in tags) {
-      if (Number(tagKey) >= 0) {
-        tagsParsed.push(Tag[tagKey])
-      }
-    }
-
-    return tagsParsed
-  }
-
   removeTagHandle(tag: string) {
     this.userService.removeTagFromCurrent(tag)
   }
@@ -68,6 +52,6 @@ export class StudentComponent {
   }
 
   getTags(event: Event) {
-    return this.parseEnums(event.tags).join('; ')
+    return event.tags.join('; ')
   }
 }

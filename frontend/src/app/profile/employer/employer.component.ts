@@ -1,5 +1,5 @@
-import { Component, computed, effect, signal } from '@angular/core';
-import { EventsMgmService, Event, EventType } from "../../internships-mgm/events-mgm.service";
+import { Component, effect, signal } from '@angular/core';
+import { EventsMgmService, Event } from "../../internships-mgm/events-mgm.service";
 import { NgForOf } from "@angular/common";
 import { EventModalComponent } from "../../add-event-modal/event-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -33,8 +33,8 @@ export class EmployerComponent {
       id: Date.now(),
       tags: [],
       endDate: new Date(),
-      name: 'New event',
-      type: EventType.internship,
+      name: 'Новое событие',
+      type: "Стажировка",
       organizerName: this.userMgmService.currentUser()?.email!,
       responded: [],
       description: ''

@@ -10,5 +10,5 @@ import { NavMenuComponent } from "./nav-menu/nav-menu.component";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'client';
+  title = 'События НИУ ВШЭ';
 }

@@ -1,39 +1,39 @@
 <div class="login-container">
-  <h1>Sign up</h1>
+  <h1>Вход</h1>
 
   <form [formGroup]="loginFormGroup" (submit)="loginHandle()">
     <div>
-      <label>Email</label>
+      <label>Электронная почта</label>
       <input
         formControlName="emailField"
         type="email"
-        placeholder="Input email"
+        placeholder="Введите e-mail"
       />
     </div>
 
     <div>
-      <label>Password</label>
+      <label>Пароль</label>
       <input
         formControlName="passwordField"
         type="password"
-        placeholder="Input password"
+        placeholder="Введите пароль"
       />
     </div>
 
     <div>
-      <label>Sign up as</label>
+      <label>Войти как</label>
       <select
         #status
         name="status"
         id="status"
         (change)="onSelectedStatus(status.value)"
       >
-        <option default>Student</option>
-        <option>HSE</option>
-        <option>Employer</option>
+        <option default>Студент</option>
+        <option>Сотрудник Проектного офиса</option>
+        <option>Представитель компании-партнера</option>
       </select>
     </div>
 
-    <button type="submit">Log In</button>
+    <button type="submit">Войти</button>
   </form>
 </div>

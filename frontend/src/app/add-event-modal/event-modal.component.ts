@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
-import { Event, EventType } from "../internships-mgm/events-mgm.service"
+import { Event } from "../internships-mgm/events-mgm.service"
 import { FormsModule } from "@angular/forms";
 
 @Component({

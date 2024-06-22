@@ -1,47 +1,47 @@
 <div class="register-container">
-  <h1>Register</h1>
+  <h1>Зарегистрировать</h1>
 
   <form [formGroup]="registerFormGroup" (submit)="registerHandle()">
     <div>
-      <label>Email</label>
+      <label>Электронная почта</label>
       <input
         formControlName="emailField"
         type="email"
-        placeholder="Input email"
+        placeholder="Введите e-mail"
       />
     </div>
 
     <div>
-      <label>Password</label>
+      <label>Пароль</label>
       <input
         formControlName="pass1Field"
         type="password"
-        placeholder="Input password"
+        placeholder="Введите пароль"
       />
     </div>
 
     <div>
-      <label>Repeat password</label>
+      <label>Повторите пароль</label>
       <input
         formControlName="pass2Field"
         type="password"
-        placeholder="Input password again"
+        placeholder="Повторите, пожалуйста, пароль"
       />
     </div>
 
     <div>
-      <label>Register as</label>
+      <label>Зарегистрироваться как</label>
       <select
         #status
         (change)="onSelectedStatus(status.value)"
         name="status"
         id="status"
       >
-        <option default>Student</option>
-        <option>HSE</option>
+        <option [defaultSelected]="true">Студент</option>
+        <option>Сотрудник Проектного офиса</option>
       </select>
     </div>
-    <button type="submit">Register</button>
+    <button type="submit">Зарегистрироваться</button>
   </form>
 </div>
 <style>
