@@ -1,0 +1,22 @@
+@startuml
+
+autonumber
+skinparam maxmessagesize 150
+
+actor "Пользователь (браузер)" as user
+participant "Клиентское приложение" as front
+participant "Бэкенд-приложение" as back
+
+user -> front++: Логин и пароль
+front -> back++: JSON-документ
+back -> back++: Проверка данных
+alt Данные корректны
+    back --> front--: Код 200; Basic токен в Cookie
+    front -> front++: Сохранение Cookie
+    front --> user--: Код 200; успешная авторизация
+else
+    back --> front--: Код 401; Сообщение о неудачной авторизации
+    front --> user--: Код 401; Сообщение о неудачной авторизации
+end
+
+@enduml
