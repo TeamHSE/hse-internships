@@ -1,7 +1,4 @@
 import os
-TOKEN = os.environ.get("BOT_TOKEN")
-EMAIL_ADRESS = os.environ.get("EMAIL")
-PASSWORD=os.environ.get("PASSWORD")
 import telebot
 from flask import Flask, request
 from flask_cors import CORS
@@ -10,13 +7,19 @@ import smtplib as smtp
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+TOKEN = os.environ.get("BOT_TOKEN")
+EMAIL_ADRESS = os.environ.get("EMAIL")
+PASSWORD=os.environ.get("PASSWORD")
+PASSWORD=os.environ.get("PASSWORD")
+CORS_URLS=os.environ.get("CORS_URLS")
+
 bot = telebot.TeleBot(TOKEN)
 server = smtp.SMTP_SSL('smtp.yandex.com.tr:465')
 server.ehlo(EMAIL_ADRESS)
 server.login(EMAIL_ADRESS, PASSWORD)
 
 app = Flask(__name__)
-CORS(app, origins=["https://66127c46a087c7a481e84be7--intern-hse.netlify.app/", "https://intern-hse.netlify.app", "http://intern-hse.netlify.app", "intern-hse.netlify.app"], supports_credentials=True, methods=['GET', 'POST'])
+CORS(app, origins=[CORS_URLS.split(',')], supports_credentials=True, methods=['GET', 'POST'])
 
 @bot.message_handler()
 def send_chat_id(message):

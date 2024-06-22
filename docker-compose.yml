@@ -1,6 +1,6 @@
 services:
   sender:
-    container_name: sender
+    container_name: ${SENDER_NAME}
     build: ./backend/sender/
     ports:
       - "5000:5000"
@@ -9,17 +9,19 @@ services:
       - BOT_TOKEN=${BOT_TOKEN}
       - EMAIL=${EMAIL}
       - PASSWORD=${PASSWORD}
+      - CORS_URLS="http://${FRONT_NAME}:4200"
   
   frontend:
-    container_name: frontend
+    container_name: ${FRONT_NAME}
     build: ./frontend/
     environment:
       NODE_ENV: production
+      SENDER_API_BASE_URL: http://${SENDER_NAME}:5000
     ports:
       - 4200:4200
   
   parser:
-    container_name: parser
+    container_name: ${PARSER_NAME}
     build: ./backend/parser/
     ports:
       - "8888:8888"
