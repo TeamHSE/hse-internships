@@ -1,7 +1,5 @@
 services:
   sender:
-    env_file:
-      - .env
     container_name: sender
     build: ./backend/sender/
     ports:
@@ -11,6 +9,7 @@ services:
       - BOT_TOKEN=${BOT_TOKEN}
       - EMAIL=${EMAIL}
       - PASSWORD=${PASSWORD}
+  
   frontend:
     container_name: frontend
     build: ./frontend/
@@ -18,3 +17,27 @@ services:
       NODE_ENV: production
     ports:
       - 4200:4200
+  
+  parser:
+    container_name: parser
+    build: ./backend/parser/
+    ports:
+      - "8888:8888"
+    depends_on:
+      - db_parse_results
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+  
+  db_parse_results:
+    image: postgres:13
+    container_name: ${DB_HOST}
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"

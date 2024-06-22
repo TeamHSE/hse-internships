@@ -4,11 +4,9 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-COPY .env .env
-
 RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 80
+EXPOSE 8888
 
-CMD ["host.docker.internal:5432", "--", "python", "./vkparser.py"]
+CMD ["python", "./vkparser.py"]
 
