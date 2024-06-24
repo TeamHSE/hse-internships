@@ -1,3 +1,5 @@
+from flask import Flask, jsonify
+import threading
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -36,7 +38,6 @@ def fetch_and_parse(url):
 
     return soup
 
-
 def create_tables(conn):
     with conn.cursor() as cursor:
         cursor.execute('''
@@ -70,7 +71,6 @@ def extract_info(soup, conn, url):
     finally:
         driver.quit()
 
-
 def job():
     global parsed_today
 
@@ -92,15 +92,19 @@ def job():
 
 schedule.every(3).hours.do(job)
 
-job()
-
 def reset_flag():
     global parsed_today
     parsed_today = False
 
 schedule.every().day.at("00:00").do(reset_flag)
 
+app = Flask(__name__)
+
+@app.route('/manual_parse', methods=['GET'])
+def manual_parse():
+    job()
+    return jsonify({"status": "Parsing job executed"}), 200
+
 if __name__ == '__main__':
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    threading.Thread(target=lambda: schedule.run_pending()).start()
+    app.run(host='0.0.0.0', port=5000)

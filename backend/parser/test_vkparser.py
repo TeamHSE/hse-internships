@@ -221,7 +221,7 @@ class TestYourModule(unittest.TestCase):
         mock_fetch_and_parse.assert_called_once()
         mock_connect.assert_called_once()
         mock_extract_info.assert_called_once()
-        mock_print.assert_any_call('Fetching URL: https://vk.com/@hsecareerperm-vakansii-ot-150624')
+        mock_print.assert_any_call('Fetching URL: https://vk.com/@hsecareerperm-vakansii-ot-160624')
 
 if __name__ == '__main__':
     unittest.main()
