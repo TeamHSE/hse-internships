@@ -1,5 +1,6 @@
 import { computed, Injectable, signal, WritableSignal } from '@angular/core';
-import { Event } from "../internships-mgm/events-mgm.service";
+import { AppUser, HseEvent } from "../models";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -14,27 +15,27 @@ export class UserMgmService {
 
   currentUser: WritableSignal<AppUser | null> = signal(null)
 
-  register(email: string, pass: string, status: Status) {
-    fetch('/api/register', {
+  register(email: string, pass: string, role: string) {
+    fetch(`${ environment.BASE_API_URL }/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, pass, status }),
-      credentials: 'include', // This will include the cookie in the request
+      body: JSON.stringify({ email, pass, role }),
+      credentials: 'include',
     })
       .then(response => response.json())
       .then(data => this.currentUser.set(data));
   }
 
   login(email: string, pass: string) {
-    fetch('/api/login', {
+    fetch(`${ environment.BASE_API_URL }/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, pass }),
-      credentials: 'include', // This will include the cookie in the request
+      credentials: 'include',
     })
       .then(response => response.json())
       .then(data => {
@@ -45,12 +46,9 @@ export class UserMgmService {
 
 
   logout() {
-    fetch('/api/logout', {
+    fetch(`${ environment.BASE_API_URL }/logout`, {
       method: 'POST',
-      credentials: 'include', // This will include the cookie in the request
-      headers: {
-        'Authorization': 'Basic ' + btoa(this.currentUser()?.email + ':' + this.currentUser()?.pass),
-      },
+      credentials: 'include',
     })
       .then(() => {
         this.currentUser.set(null);
@@ -60,12 +58,12 @@ export class UserMgmService {
 
   addTagToCurrent(tag: string) {
     const userId = this.currentUser()?.email;
-    fetch(`/api/users/${ userId }/tags`, {
+    fetch(`${ environment.BASE_API_URL }/users/${ userId }/tags`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa(this.currentUser()?.email + ':' + this.currentUser()?.pass),
       },
+      credentials: 'include',
       body: JSON.stringify({ tag }),
     })
       .then(response => response.json())
@@ -74,42 +72,26 @@ export class UserMgmService {
 
   removeTagFromCurrent(tag: string) {
     const userId = this.currentUser()?.email;
-    fetch(`/api/users/${ userId }/tags/${ tag }`, {
+    fetch(`${ environment.BASE_API_URL }/users/${ userId }/tags/${ tag }`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + btoa(this.currentUser()?.email + ':' + this.currentUser()?.pass),
       },
+      credentials: 'include',
     })
       .then(response => response.json())
       .then(data => this.currentUser.set(data));
   }
 
-  subscribeCurrentToEvent(event: Event) {
+  subscribeCurrentToEvent(event: HseEvent) {
     const userId = this.currentUser()?.email;
-    fetch(`/api/users/${ userId }/events/${ event.id }`, {
+    fetch(`${ environment.BASE_API_URL }/users/${ userId }/events/${ event.id }`, {
       method: 'POST',
-      headers: {
-        'Authorization': 'Basic ' + btoa(this.currentUser()?.email + ':' + this.currentUser()?.pass),
-      }
+      credentials: 'include',
     })
       .then(response => response.json())
       .then(data => this.currentUser.set(data));
   }
 
   eventsForCurrent = computed(() => this.currentUser()?.subscribedTo)
-}
-
-export interface AppUser {
-  email: string
-  pass: string
-  tags: string[]
-  status: Status
-  subscribedTo: Event[]
-}
-
-export enum Status {
-  Student,
-  Hse,
-  Employer
 }

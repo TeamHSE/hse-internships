@@ -8,20 +8,32 @@
   <div class="add-event-form">
     <div class="form-group">
       <label for="eventName">Имя</label>
-      <input type="text" id="eventName" name="eventName" [(ngModel)]="event.name" required/>
+      <input type="text" id="eventName" name="eventName" [(ngModel)]="projEvent.name" required/>
     </div>
     <div class="form-group">
       <label for="eventDescription">Описание</label>
-      <textarea id="eventDescription" name="eventDescription" [(ngModel)]="event.description" required></textarea>
+      <textarea id="eventDescription" name="eventDescription" [(ngModel)]="projEvent.description" required></textarea>
     </div>
     <div class="form-group">
       <label for="organizerName">Организатор</label>
-      <input type="text" id="organizerName" name="organizerName" [(ngModel)]="event.organizerName" required/>
+      <input type="text" id="organizerName" name="organizerName" [(ngModel)]="projEvent.organizerName" required/>
+    </div>
+    <div class="form-group">
+      <label for="eventType">Тип события</label>
+      <select id="eventType" name="eventType" [(ngModel)]="projEvent.type" required>
+        <option value="" disabled selected>Выберите тип события</option>
+        <option *ngFor="let evType of EventTypes" value="{{ evType }}">{{ evType }}</option>
+      </select>
     </div>
     <div class="form-group">
       <label for="eventTags">Теги</label>
-      <input type="text" id="eventTags" name="eventTags" placeholder="backend, frontend, CS, system analysis"
-             [(ngModel)]="event.tags" required/>
+      <ng-multiselect-dropdown
+        id="eventTags"
+        [data]="Tags"
+        [(ngModel)]="selectedTags"
+        [settings]="dropdownSettings"
+        (onSelect)="onItemSelect($event)">
+      </ng-multiselect-dropdown>
     </div>
   </div>
 </div>

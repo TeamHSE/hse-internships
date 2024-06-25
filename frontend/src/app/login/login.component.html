@@ -23,14 +23,14 @@
     <div>
       <label>Войти как</label>
       <select
-        #status
-        name="status"
-        id="status"
-        (change)="onSelectedStatus(status.value)"
+        #role
+        name="role"
+        id="role"
+        (change)="onSelectedStatus(role.value)"
       >
-        <option default>Студент</option>
-        <option>Сотрудник Проектного офиса</option>
-        <option>Представитель компании-партнера</option>
+        <option default>{{ Roles[0] }}</option>
+        <option>{{ Roles[1] }}</option>
+        <option>{{ Roles[2] }}</option>
       </select>
     </div>
 

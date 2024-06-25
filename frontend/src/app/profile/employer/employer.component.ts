@@ -1,9 +1,10 @@
 import { Component, effect, signal } from '@angular/core';
-import { EventsMgmService, Event } from "../../internships-mgm/events-mgm.service";
+import { EventsMgmService } from "../../internships-mgm/events-mgm.service";
 import { NgForOf } from "@angular/common";
 import { EventModalComponent } from "../../add-event-modal/event-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { UserMgmService } from "../../user-mgm/user-mgm.service";
+import { EventTypes, HseEvent } from "../../models";
 
 @Component({
   selector: 'app-employer',
@@ -15,7 +16,7 @@ import { UserMgmService } from "../../user-mgm/user-mgm.service";
   styleUrls: [ './employer.component.css' ]
 })
 export class EmployerComponent {
-  companyEvents = signal<Event[]>(this.eventsMgmService.events()
+  companyEvents = signal<HseEvent[]>(this.eventsMgmService.events()
     .filter(value => value.organizerName === this.userMgmService.currentUser()?.email));
 
   constructor(protected eventsMgmService: EventsMgmService,
@@ -29,12 +30,12 @@ export class EmployerComponent {
 
   addEvent() {
     let modal = this.modalService.open(EventModalComponent)
-    let event: Event = {
+    let event: HseEvent = {
       id: Date.now(),
       tags: [],
       endDate: new Date(),
       name: 'Новое событие',
-      type: "Стажировка",
+      type: EventTypes[0],
       organizerName: this.userMgmService.currentUser()?.email!,
       responded: [],
       description: ''
@@ -45,7 +46,7 @@ export class EmployerComponent {
     })
   }
 
-  editEvent(event: Event) {
+  editEvent(event: HseEvent) {
     let modal = this.modalService.open(EventModalComponent)
     modal.componentInstance.setEvent(event)
     modal.componentInstance.setSubmitCallback(() => {
@@ -53,7 +54,7 @@ export class EmployerComponent {
     })
   }
 
-  deleteEvent(event: Event) {
+  deleteEvent(event: HseEvent) {
     this.eventsMgmService.deleteEvent(event)
   }
 }

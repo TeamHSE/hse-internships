@@ -1,8 +1,9 @@
 import { Component, computed } from '@angular/core';
-import { Status, UserMgmService } from "../../user-mgm/user-mgm.service";
+import { UserMgmService } from "../../user-mgm/user-mgm.service";
 import { FormsModule } from "@angular/forms";
 import { DatePipe, NgForOf, NgIf } from "@angular/common";
-import { EventsMgmService, Event } from "../../internships-mgm/events-mgm.service";
+import { EventsMgmService } from "../../internships-mgm/events-mgm.service";
+import { HseEvent, Roles, Tags } from "../../models";
 
 @Component({
   selector: 'app-student',
@@ -20,17 +21,17 @@ export class StudentComponent {
 
   constructor(private userService: UserMgmService,
               private eventsMgmService: EventsMgmService) {
-    this.allTags = [ 'ПИ', "БИ", "Программирование", "Архитектура ПО" ]
+    this.allTags = Tags
   }
 
   currentUser = computed(() => this.userService.currentUser())
 
-  protected readonly status = Status;
+  protected readonly role = Roles[0];
   protected readonly allTags: string[] = []
   educationalProgram = "Программная инженерия"
   courseNumber = 1
-  experience = "Нет опыта"
-  currentJob = 'Студент'
+  experience = "Без опыта"
+  currentJob = 'Безработный'
   skills = ''
   summary = ''
   fullName = ''
@@ -47,11 +48,13 @@ export class StudentComponent {
     this.userService.removeTagFromCurrent(tag)
   }
 
-  subscribeToEvent(event: Event) {
+  subscribeToEvent(event: HseEvent) {
     this.userService.subscribeCurrentToEvent(event)
   }
 
-  getTags(event: Event) {
+  getTags(event: HseEvent) {
     return event.tags.join('; ')
   }
+
+  protected readonly Roles = Roles;
 }

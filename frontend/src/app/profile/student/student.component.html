@@ -1,6 +1,6 @@
 <div class="container">
   <div
-    *ngIf="currentUser()!.status === status.Student"
+    *ngIf="currentUser()!.role === Roles[0]"
     class="preferences-section">
     <h1>Управляйте своими настройками</h1>
     <div
@@ -73,7 +73,7 @@
     </div>
     <div>
       <label>Навыки</label>
-      <textarea placeholder="Write Your Навыки" [(ngModel)]="skills"></textarea>
+      <textarea placeholder="Укажите Ваши навыки" [(ngModel)]="skills"></textarea>
     </div>
     <div>
       <label>О себе</label>

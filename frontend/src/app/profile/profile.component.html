@@ -1,15 +1,17 @@
-@if (currentUser() !== null) {
-  <div *ngIf="currentUser()!.status === status.Student" class="preferences-section">
+<div *ngIf="currentUser() as user; else loginMessage">
+  <div *ngIf="user.role === Roles[0]" class="preferences-section">
     <app-student></app-student>
   </div>
 
-  <div *ngIf="currentUser()!.status === status.Hse" class="preferences-section">
+  <div *ngIf="user.role === Roles[1]" class="preferences-section">
     <app-hse></app-hse>
   </div>
 
-  <div *ngIf="currentUser()!.status === status.Employer" class="preferences-section">
+  <div *ngIf="user.role === Roles[2]" class="preferences-section">
     <app-employer></app-employer>
   </div>
-} @else {
-  <h3>Пожалуйста, выполните вход в систему для просмотра событий и упарвления профилем</h3>
-}
+</div>
+
+<ng-template #loginMessage>
+  <h3>Пожалуйста, выполните вход в систему для просмотра событий и управления профилем</h3>
+</ng-template>

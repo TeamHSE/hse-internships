@@ -5,21 +5,22 @@
     <button class="btn btn-outline-primary" (click)="addEvent()">Опубликовать новое событие</button>
   </div>
   <div class="event-cards">
-    <div class="event-card" *ngFor="let event of companyEvents()">
-      <h3>{{ event.name }}</h3>
-      <p><strong>Организатор:</strong> {{ event.organizerName }}</p>
-      <p><strong>Теги:</strong> {{ event.tags.join('; ') }}</p>
-      <p><strong>Тип события:</strong> {{ event.type }}</p>
-      <p><strong>Описание:</strong> {{ event.description }}</p>
-      <p><strong>Подали заявку:</strong> {{ event.responded.length > 0 ? event.responded.join('; ') : 'нет подавших' }}
+    <div class="event-card" *ngFor="let projEvent of companyEvents()">
+      <h3>{{ projEvent.name }}</h3>
+      <p><strong>Организатор:</strong> {{ projEvent.organizerName }}</p>
+      <p><strong>Теги:</strong> {{ projEvent.tags.join('; ') }}</p>
+      <p><strong>Тип события:</strong> {{ projEvent.type }}</p>
+      <p><strong>Описание:</strong> {{ projEvent.description }}</p>
+      <p><strong>Подали
+                 заявку:</strong> {{ projEvent.responded.length > 0 ? projEvent.responded.length : 'нет подавших' }}
       </p>
-      <button (click)="editEvent(event)">Редактировать</button>
-      <button class="mx-1" (click)="deleteEvent(event)">Удалить</button>
       <ul class="student-responses">
-        <li *ngFor="let response of event.responded">
-          {{ response.email }}
+        <li *ngFor="let response of projEvent.responded">
+          <p>{{ response.email }}</p>
         </li>
       </ul>
+      <button (click)="editEvent(projEvent)">Редактировать</button>
+      <button class="mx-1" (click)="deleteEvent(projEvent)">Удалить</button>
     </div>
   </div>
 </div>

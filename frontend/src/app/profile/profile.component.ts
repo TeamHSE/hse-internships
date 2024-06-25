@@ -1,9 +1,10 @@
-import { Component, computed } from '@angular/core';
-import { Status, UserMgmService } from "../user-mgm/user-mgm.service";
+import { ChangeDetectorRef, Component, computed, OnInit, Signal } from '@angular/core';
+import { UserMgmService } from "../user-mgm/user-mgm.service";
 import { StudentComponent } from "./student/student.component";
 import { NgIf } from "@angular/common";
 import { HseComponent } from "./hse/hse.component";
 import { EmployerComponent } from "./employer/employer.component";
+import { AppUser, Roles } from "../models";
 
 @Component({
   selector: 'app-profile',
@@ -17,10 +18,15 @@ import { EmployerComponent } from "./employer/employer.component";
   ],
   styleUrls: [ './profile.component.css' ]
 })
-export class ProfileComponent {
-  constructor(private userService: UserMgmService) {
+export class ProfileComponent implements OnInit {
+  protected currentUser!: Signal<AppUser | null>;
+
+  constructor(private userService: UserMgmService,) {
   }
 
-  currentUser = computed(() => this.userService.currentUser())
-  protected readonly status = Status;
+  ngOnInit(): void {
+    this.currentUser = computed(() => this.userService.currentUser())
+  }
+
+  protected readonly Roles = Roles;
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Status, UserMgmService } from "../user-mgm/user-mgm.service";
+import { UserMgmService } from "../user-mgm/user-mgm.service";
+import { Roles } from "../models";
 
 // The main responsibility of this component is to handle the user's login process.
 // This is the starting point for the login process. Any component that needs to authenticate
@@ -24,23 +25,18 @@ export class RegisterComponent {
     pass2Field: new FormControl('', [ Validators.required ]),
   })
 
-  selectStatus = 'Student'
-
-  statuses: { [key: string]: Status } = {
-    'Student': Status.Student,
-    'HSE': Status.Hse,
-    'Employer': Status.Employer,
-  }
+  selectRole = Roles[0]
 
   registerHandle() {
     this.userService.register(
       this.registerFormGroup.controls.emailField.value!,
       this.registerFormGroup.controls.pass1Field.value!,
-      this.statuses[this.selectStatus]
-    )
+      this.selectRole)
   }
 
-  onSelectedStatus(value: string) {
-    this.selectStatus = value
+  onSelectedRole(value: string) {
+    this.selectRole = value
   }
+
+  protected readonly Roles = Roles;
 }

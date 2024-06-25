@@ -4,24 +4,31 @@
     <h2>Зарегистрировать нового представителя компании-партнера</h2>
     <button class="btn btn-outline-primary mb-3" (click)="registerEmployer()">Зарегистрировать</button>
     <h2>Управляйте всеми событиями в системе</h2>
-    <button class="btn btn-outline-primary" (click)="addEvent()">Add New</button>
+    <button class="btn btn-outline-primary" (click)="addEvent()">Добавить</button>
   </div>
   <div class="event-cards">
-    <div class="event-card" *ngFor="let event of eventsMgmService.events()">
-      <h3>{{ event.name }}</h3>
-      <p><strong>Организатор:</strong> {{ event.organizerName }}</p>
-      <p><strong>Теги:</strong> {{ event.tags.join('; ') }}</p>
-      <p><strong>Тип события:</strong> {{ event.type }}</p>
-      <p><strong>Описание:</strong> {{ event.description }}</p>
-      <p><strong>Подали заявку:</strong> {{ event.responded.length > 0 ? event.responded.join('; ') : 'нет подавших' }}
-      </p>
-      <button (click)="editEvent(event)">Редактировать</button>
-      <button class="mx-1" (click)="deleteEvent(event)">Удалить</button>
-      <ul class="student-responses">
-        <li *ngFor="let response of event.responded">
-          {{ response.email }}
-        </li>
-      </ul>
-    </div>
+    @for (projEvent of eventsMgmService.events(); track $index) {
+      <div class="event-card">
+        <h3>{{ projEvent.name }}</h3>
+        <p><strong>Организатор:</strong> {{ projEvent.organizerName }}</p>
+        <p><strong>Теги: </strong>
+          @for (tag of projEvent.tags; track $index) {
+            <span>{{ tag }}{{ $last ? '' : ', ' }}</span>
+          }
+        </p>
+        <p><strong>Тип события:</strong> {{ projEvent.type }}</p>
+        <p><strong>Описание:</strong> {{ projEvent.description }}</p>
+        <p><strong>Подали
+                   заявку:</strong> {{ projEvent.responded.length > 0 ? projEvent.responded.join('; ') : 'нет подавших' }}
+        </p>
+        <button (click)="editEvent(projEvent)">Редактировать</button>
+        <button class="mx-1" (click)="deleteEvent(projEvent)">Удалить</button>
+        <ul class="student-responses">
+          <li *ngFor="let response of projEvent.responded">
+            {{ response.email }}
+          </li>
+        </ul>
+      </div>
+    }
   </div>
 </div>

@@ -32,13 +32,13 @@
     <div>
       <label>Зарегистрироваться как</label>
       <select
-        #status
-        (change)="onSelectedStatus(status.value)"
-        name="status"
-        id="status"
+        #role
+        (change)="onSelectedRole(role.value)"
+        name="role"
+        id="role"
       >
-        <option [defaultSelected]="true">Студент</option>
-        <option>Сотрудник Проектного офиса</option>
+        <option [defaultSelected]="true">{{ Roles[0] }}</option>
+        <option>{{ Roles[1] }}</option>
       </select>
     </div>
     <button type="submit">Зарегистрироваться</button>

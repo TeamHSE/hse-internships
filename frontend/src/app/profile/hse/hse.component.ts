@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { EventsMgmService, Event } from "../../internships-mgm/events-mgm.service";
+import { EventsMgmService } from "../../internships-mgm/events-mgm.service";
 import { NgForOf } from "@angular/common";
 import { EventModalComponent } from "../../add-event-modal/event-modal.component";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { UserMgmService } from "../../user-mgm/user-mgm.service";
 import { RegisterEmpModalComponent } from "../../register-emp-modal/register-emp-modal.component";
+import { EventTypes, HseEvent } from "../../models";
 
 @Component({
   selector: 'app-hse',
@@ -23,12 +24,12 @@ export class HseComponent {
 
   addEvent() {
     let modal = this.modalService.open(EventModalComponent)
-    let event: Event = {
+    let event: HseEvent = {
       id: Date.now(),
       tags: [],
       endDate: new Date(),
       name: 'Новое событие',
-      type: "Стажировка",
+      type: EventTypes[0],
       organizerName: '',
       responded: [],
       description: ''
@@ -39,15 +40,15 @@ export class HseComponent {
     })
   }
 
-  editEvent(event: Event) {
-    let modal = this.modalService.open(EventModalComponent)
+  editEvent(event: HseEvent) {
+    const modal = this.modalService.open(EventModalComponent)
     modal.componentInstance.setEvent(event)
     modal.componentInstance.setSubmitCallback(() => {
       this.eventsMgmService.updateEvent(event)
     })
   }
 
-  deleteEvent(event: Event) {
+  deleteEvent(event: HseEvent) {
     this.eventsMgmService.deleteEvent(event)
   }
 

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Status, UserMgmService } from "../user-mgm/user-mgm.service";
-import { EnumValue } from "@angular/compiler-cli/src/ngtsc/partial_evaluator";
+import { UserMgmService } from "../user-mgm/user-mgm.service";
+import { Roles } from "../models";
 
 // The main responsibility of this component is to handle the user's login process.
 // This is the starting point for the login process. Any component that needs to authenticate
@@ -22,24 +22,21 @@ export class LoginComponent {
     passwordField: new FormControl('', [ Validators.required ]),
   })
 
-  selectedStatus = 'Student'
+  selectedRole = Roles[0]
 
   constructor(private userService: UserMgmService) {
   }
 
   onSelectedStatus(value: string) {
-    this.selectedStatus = value
+    this.selectedRole = value
   }
 
   loginHandle() {
     this.userService.login(
       this.loginFormGroup.controls.emailField.value!,
-      this.loginFormGroup.controls.passwordField.value!)
+      this.loginFormGroup.controls.passwordField.value!
+    )
   }
 
-  statuses: { [key: string]: Status } = {
-    'Student': Status.Student,
-    'Hse': Status.Hse,
-    'Employer': Status.Employer,
-  }
+  protected readonly Roles = Roles;
 }

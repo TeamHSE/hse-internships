@@ -1,27 +1,28 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
-import { AppUser } from "../user-mgm/user-mgm.service";
+import { HseEvent } from "../models";
+import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventsMgmService {
 
-  public events: WritableSignal<Event[]> = signal([])
+  public events: WritableSignal<HseEvent[]> = signal([])
 
   constructor() {
     this.fetchEvents()
   }
 
   private fetchEvents() {
-    fetch('/api/events', {
+    fetch(`${ environment.BASE_API_URL }/api/events`, {
       method: 'GET',
     })
       .then(response => response.json())
       .then(data => this.events.set(data));
   }
 
-  addEvent(event: Event) {
-    fetch('/api/events', {
+  addEvent(event: HseEvent) {
+    fetch(`${ environment.BASE_API_URL }/api/events`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,21 +38,21 @@ export class EventsMgmService {
     this.sendNotification(event)
   }
 
-  private sendNotification(event: Event) {
+  private sendNotification(event: HseEvent) {
     const myHeaders = new Headers()
     myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({
       "users": [
         {
-          "target_id": "289448982",
+          "target_id": "926188677", // todo
           "target": "telegram"
         },
       ],
       "event_name": event.name,
       "event_link": event.organizerName.length > 0 ? event.organizerName.length : "none"
     });
-    fetch("https://hack-bot.cleverapps.io/send_message", {
+    fetch(`${environment.SENDER_API_BASE_URL}/send_message`, {
       method: "POST",
       headers: myHeaders,
       body: raw,
@@ -62,8 +63,8 @@ export class EventsMgmService {
       .catch((error) => console.error(error));
   }
 
-  deleteEvent(event: Event) {
-    fetch(`/api/events/${event.id}`, {
+  deleteEvent(event: HseEvent) {
+    fetch(`${ environment.BASE_API_URL }/events/${ event.id }`, {
       method: 'DELETE',
     })
       .then(() => this.events.update(value => {
@@ -72,8 +73,8 @@ export class EventsMgmService {
       }));
   }
 
-  updateEvent(event: Event) {
-    fetch(`/api/events/${event.id}`, {
+  updateEvent(event: HseEvent) {
+    fetch(`${ environment.BASE_API_URL }/events/${ event.id }`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -87,15 +88,4 @@ export class EventsMgmService {
         return value;
       }));
   }
-}
-
-export interface Event {
-  id: number
-  name: string
-  type: string
-  tags: string[]
-  organizerName: string
-  endDate: Date
-  responded: AppUser[]
-  description: string
 }
