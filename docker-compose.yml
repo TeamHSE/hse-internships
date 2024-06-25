@@ -9,7 +9,7 @@ services:
       - BOT_TOKEN=${BOT_TOKEN}
       - EMAIL=${EMAIL}
       - PASSWORD=${PASSWORD}
-      - CORS_URLS="http://${FRONT_NAME}:4200"
+      - CORS_URLS=http://${FRONT_NAME}:4200,http://localhost:4200 # Задавать список, разделяя `,`
   
   frontend:
     container_name: ${FRONT_NAME}
